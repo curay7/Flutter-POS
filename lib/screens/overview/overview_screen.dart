@@ -16,7 +16,7 @@ class OverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<FactureController>(
-        create: (_) => FactureController()..getReceiptsByDate(currentdate!),
+        create: (_) => FactureController()..getData(currentdate!),
         child: Scaffold(
           appBar: AppBar(
             title: Text("Receipts"),

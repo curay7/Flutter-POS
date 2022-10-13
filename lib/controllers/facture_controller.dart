@@ -39,6 +39,29 @@ class FactureController extends ChangeNotifier {
     return list_of_receipts;
   }
 
+  Future<List<FactureModel>> getData(String date) async {
+    print(date);
+    var dbm = await marketdb.database;
+    await dbm
+        .rawQuery("select * from factures order by facturedate desc")
+        .then((value) {
+      print("lenght : " + value.length.toString());
+      if (value.length > 0) {
+        value.forEach((element) {
+          list_of_receipts.add(FactureModel.fromJson(element));
+        });
+      } else {
+        print("no receipts yet");
+      }
+
+      list_of_receipts.forEach((element) {
+        print(element.toJson());
+      });
+      notifyListeners();
+    });
+    return list_of_receipts;
+  }
+
   Future<List<FactureModel>> getAllData(String date) async {
     print(date);
     var dbm = await marketdb.database;
